@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AssemblyTitle>OdeyTech.WPF.Example.Hospital</AssemblyTitle>
+    <Company>Andrii Odeychuk</Company>
+    <Product>OdeyTech.WPF.Example.Hospital</Product>
+    <Copyright>Copyright © $(Company) 2023.</Copyright>
+    <Description>Hospital Registry. Example WPF application demonstrating the use of OdeyTech.SqlProvider, OdeyTech.Data, OdeyTech.ProductivityKit and working with competing query queue.</Description>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <AssemblyVersion>0.0.272</AssemblyVersion>
+    <UseWPF>true</UseWPF>
+    <StartupObject>OdeyTech.WPF.Example.Hospital.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="DataManagment\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="DataManagment\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="DataManagment\**" />
+    <None Remove="Services\**" />
+    <Page Remove="DataManagment\**" />
+    <Page Remove="Services\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="OdeyTech.Data" Version="0.0.117" />
+    <PackageReference Include="OdeyTech.ProductivityKit" Version="0.0.19" />
+    <PackageReference Include="OdeyTech.SqlProvider" Version="0.0.79" />
+    <PackageReference Include="OdeyTech.WPF.Common" Version="0.0.176" />
+    <PackageReference Include="OdeyTech.WPF.UIElements" Version="0.0.113" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

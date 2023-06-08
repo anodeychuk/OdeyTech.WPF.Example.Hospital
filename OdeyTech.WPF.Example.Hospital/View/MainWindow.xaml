@@ -1,0 +1,108 @@
+﻿<Window
+    x:Class="OdeyTech.WPF.Example.Hospital.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:OdeyTech.WPF.UIElements.Converters;assembly=OdeyTech.WPF.UIElements"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ot="clr-namespace:OdeyTech.WPF.UIElements.Controls;assembly=OdeyTech.WPF.UIElements"
+    xmlns:res="clr-namespace:OdeyTech.WPF.Example.Hospital.Properties"
+    Title="{Binding WindowTitle}"
+    Width="800"
+    Height="450"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <converter:GridIndexConverter x:Key="GridIndexConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                Width="60"
+                Height="24"
+                Command="{Binding AddCommand}"
+                Content="{x:Static res:Resources.AddButtonTitle}"
+                IsEnabled="{Binding CanAdd}" />
+            <Button
+                Grid.Column="1"
+                Width="60"
+                Height="24"
+                Command="{Binding EditCommand}"
+                Content="{x:Static res:Resources.EditButtonTitle}"
+                IsEnabled="{Binding CanEdit}" />
+            <Button
+                Grid.Column="2"
+                Width="60"
+                Height="24"
+                Command="{Binding RemoveCommand}"
+                Content="{x:Static res:Resources.RemoveButtonTitle}"
+                IsEnabled="{Binding CanRemove}" />
+        </Grid>
+        <GroupBox
+            Grid.Row="2"
+            Margin="4"
+            Header="{x:Static res:Resources.PatientsList}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ot:TextEntryLabel
+                    Grid.Row="0"
+                    Height="21"
+                    LabelText="{x:Static res:Resources.SearchText}"
+                    LabelWidth="42"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                    TextBoxWidth="*"
+                    TextHint="{x:Static res:Resources.SearchTextHint}" />
+
+                <DataGrid
+                    Grid.Row="1"
+                    AlternationCount="{Binding Patients.Count}"
+                    AutoGenerateColumns="False"
+                    CanUserSortColumns="True"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Patients, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedPatient, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            MinWidth="30"
+                            Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource GridIndexConverter}}"
+                            Header="{x:Static res:Resources.GridIndex}" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Name}"
+                            Header="{x:Static res:Resources.Name}" />
+                        <DataGridTextColumn
+                            Width="2*"
+                            Binding="{Binding Surname}"
+                            Header="{x:Static res:Resources.Surname}" />
+                        <DataGridTextColumn
+                            Width="2*"
+                            Binding="{Binding Patronymic}"
+                            Header="{x:Static res:Resources.Patronymic}" />
+                        <DataGridTextColumn
+                            Width="2*"
+                            Binding="{Binding Phone}"
+                            Header="{x:Static res:Resources.Phone}" />
+                        <DataGridTextColumn
+                            Width="2*"
+                            Binding="{Binding Address}"
+                            Header="{x:Static res:Resources.Address}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

@@ -61,11 +61,30 @@ namespace OdeyTech.WPF.Example.Hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Add {
+            get {
+                object obj = ResourceManager.GetObject("Add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string AddButtonTitle {
             get {
                 return ResourceManager.GetString("AddButtonTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a new patient record.
+        /// </summary>
+        public static string AddButtonToolTip {
+            get {
+                return ResourceManager.GetString("AddButtonToolTip", resourceCulture);
             }
         }
         
@@ -133,6 +152,16 @@ namespace OdeyTech.WPF.Example.Hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Edit {
+            get {
+                object obj = ResourceManager.GetObject("Edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string EditButtonTitle {
@@ -142,20 +171,20 @@ namespace OdeyTech.WPF.Example.Hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit the selected patient record.
+        /// </summary>
+        public static string EditButtonToolTip {
+            get {
+                return ResourceManager.GetString("EditButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string ErrorView {
             get {
                 return ResourceManager.GetString("ErrorView", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #.
-        /// </summary>
-        public static string GridIndex {
-            get {
-                return ResourceManager.GetString("GridIndex", resourceCulture);
             }
         }
         
@@ -241,11 +270,30 @@ namespace OdeyTech.WPF.Example.Hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Remove {
+            get {
+                object obj = ResourceManager.GetObject("Remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string RemoveButtonTitle {
             get {
                 return ResourceManager.GetString("RemoveButtonTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove the selected patient record.
+        /// </summary>
+        public static string RemoveButtonToolTip {
+            get {
+                return ResourceManager.GetString("RemoveButtonToolTip", resourceCulture);
             }
         }
         

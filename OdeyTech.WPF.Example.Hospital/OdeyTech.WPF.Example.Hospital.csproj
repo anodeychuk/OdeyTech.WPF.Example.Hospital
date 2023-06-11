@@ -7,13 +7,17 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>OdeyTech.WPF.Example.Hospital</AssemblyTitle>
     <Company>Andrii Odeychuk</Company>
-    <Product>OdeyTech.WPF.Example.Hospital</Product>
+    <Product>Hospital Registry</Product>
     <Copyright>Copyright © $(Company) 2023.</Copyright>
-    <Description>Hospital Registry. Example WPF application demonstrating the use of OdeyTech.SqlProvider, OdeyTech.Data, OdeyTech.ProductivityKit and working with competing query queue.</Description>
+    <Description>Example WPF application demonstrating the use of OdeyTech.SqlProvider, OdeyTech.Data, OdeyTech.ProductivityKit and working with competing query queue.</Description>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-    <AssemblyVersion>0.0.272</AssemblyVersion>
+    <AssemblyVersion>0.0.312</AssemblyVersion>
     <UseWPF>true</UseWPF>
     <StartupObject>OdeyTech.WPF.Example.Hospital.App</StartupObject>
+    <Authors>$(Company)</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/anodeychuk/OdeyTech.WPF.Example.Hospital</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/anodeychuk/OdeyTech.WPF.Example.Hospital</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -32,6 +36,12 @@
     <Page Remove="Services\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\OdeyTech.CommonConfigurations\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,7 +57,7 @@
     <PackageReference Include="OdeyTech.ProductivityKit" Version="0.0.19" />
     <PackageReference Include="OdeyTech.SqlProvider" Version="0.0.79" />
     <PackageReference Include="OdeyTech.WPF.Common" Version="0.0.176" />
-    <PackageReference Include="OdeyTech.WPF.UIElements" Version="0.0.113" />
+    <PackageReference Include="OdeyTech.WPF.UIElements" Version="0.0.173" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
   </ItemGroup>
   <ItemGroup>

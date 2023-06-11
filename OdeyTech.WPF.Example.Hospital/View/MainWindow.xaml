@@ -13,41 +13,47 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
-        <converter:GridIndexConverter x:Key="GridIndexConverter" />
+        <converter:RowToIndexConverter x:Key="RowToIndexConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" HorizontalAlignment="Left">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="70" />
-            </Grid.ColumnDefinitions>
-            <Button
-                Grid.Column="0"
-                Width="60"
+        <StackPanel
+            Grid.Row="0"
+            Margin="5,0,0,0"
+            Orientation="Horizontal">
+            <ot:ImageTextButton
+                Width="80"
                 Height="24"
+                Margin="0,0,10,0"
+                BitmapSource="{x:Static res:Resources.Add}"
                 Command="{Binding AddCommand}"
-                Content="{x:Static res:Resources.AddButtonTitle}"
-                IsEnabled="{Binding CanAdd}" />
-            <Button
-                Grid.Column="1"
-                Width="60"
+                IsEnabled="{Binding CanAdd}"
+                TabIndex="0"
+                Text="{x:Static res:Resources.AddButtonTitle}"
+                ToolTip="{x:Static res:Resources.AddButtonToolTip}" />
+            <ot:ImageTextButton
+                Width="80"
                 Height="24"
+                Margin="0,0,10,0"
+                BitmapSource="{x:Static res:Resources.Edit}"
                 Command="{Binding EditCommand}"
-                Content="{x:Static res:Resources.EditButtonTitle}"
-                IsEnabled="{Binding CanEdit}" />
-            <Button
-                Grid.Column="2"
-                Width="60"
+                IsEnabled="{Binding CanEdit}"
+                TabIndex="1"
+                Text="{x:Static res:Resources.EditButtonTitle}"
+                ToolTip="{x:Static res:Resources.EditButtonToolTip}" />
+            <ot:ImageTextButton
+                Width="80"
                 Height="24"
+                BitmapSource="{x:Static res:Resources.Remove}"
                 Command="{Binding RemoveCommand}"
-                Content="{x:Static res:Resources.RemoveButtonTitle}"
-                IsEnabled="{Binding CanRemove}" />
-        </Grid>
+                IsEnabled="{Binding CanRemove}"
+                TabIndex="2"
+                Text="{x:Static res:Resources.RemoveButtonTitle}"
+                ToolTip="{x:Static res:Resources.RemoveButtonToolTip}" />
+        </StackPanel>
         <GroupBox
             Grid.Row="2"
             Margin="4"
@@ -68,18 +74,17 @@
 
                 <DataGrid
                     Grid.Row="1"
-                    AlternationCount="{Binding Patients.Count}"
+                    AlternatingRowBackground="Bisque"
+                    AlternationCount="2"
                     AutoGenerateColumns="False"
                     CanUserSortColumns="True"
                     IsReadOnly="True"
                     ItemsSource="{Binding Patients, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                     SelectedItem="{Binding SelectedPatient, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single">
                     <DataGrid.Columns>
-                        <DataGridTextColumn
-                            MinWidth="30"
-                            Binding="{Binding AlternationIndex, RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource GridIndexConverter}}"
-                            Header="{x:Static res:Resources.GridIndex}" />
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Name}"
@@ -101,6 +106,19 @@
                             Binding="{Binding Address}"
                             Header="{x:Static res:Resources.Address}" />
                     </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Header" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource RowToIndexConverter}}" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
+                    <DataGrid.InputBindings>
+                        <MouseBinding Command="{Binding EditCommand}" MouseAction="LeftDoubleClick" />
+                    </DataGrid.InputBindings>
                 </DataGrid>
             </Grid>
         </GroupBox>

@@ -89,8 +89,7 @@ namespace OdeyTech.WPF.Example.Hospital.Repository
             patient.Name = row.Field<string>(1);
             patient.Surname = row.Field<string>(2);
             patient.Patronymic = row.Field<string>(3);
-            DateTime.TryParseExact(row[4].ToString(), "yyyy-MM-dd", null, DateTimeStyles.None, out DateTime result);
-            patient.Birthday = result;
+            patient.Birthday = GetDate(row[4].ToString());
             patient.Phone = row.Field<string>(5);
             patient.Postcode = (int)Convert.ToInt64(row[6]);
             patient.Country = row.Field<string>(7);
@@ -98,5 +97,10 @@ namespace OdeyTech.WPF.Example.Hospital.Repository
             patient.Address = row.Field<string>(9);
             return patient;
         }
+
+        private DateTime GetDate(string date)
+            => DateTime.TryParseExact(date, "yyyy-MM-dd", null, DateTimeStyles.None, out DateTime result)
+                ? result
+                : throw new InvalidCastException($"Unable to convert '{date}' to a DateTime object. Expected format is 'yyyy-MM-dd'.");
     }
 }

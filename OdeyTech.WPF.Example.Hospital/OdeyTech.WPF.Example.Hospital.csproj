@@ -11,7 +11,7 @@
     <Copyright>Copyright © $(Company) 2023.</Copyright>
     <Description>Example WPF application demonstrating the use of OdeyTech.SqlProvider, OdeyTech.Data, OdeyTech.ProductivityKit and working with competing query queue.</Description>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-    <AssemblyVersion>0.0.312</AssemblyVersion>
+    <AssemblyVersion>0.0.314</AssemblyVersion>
     <UseWPF>true</UseWPF>
     <StartupObject>OdeyTech.WPF.Example.Hospital.App</StartupObject>
     <Authors>$(Company)</Authors>
@@ -53,11 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="OdeyTech.Data" Version="0.0.117" />
-    <PackageReference Include="OdeyTech.ProductivityKit" Version="0.0.19" />
-    <PackageReference Include="OdeyTech.SqlProvider" Version="0.0.79" />
+    <PackageReference Include="OdeyTech.Data" Version="0.0.118" />
+    <PackageReference Include="OdeyTech.ProductivityKit" Version="0.0.20" />
+    <PackageReference Include="OdeyTech.SqlProvider" Version="0.0.80" />
     <PackageReference Include="OdeyTech.WPF.Common" Version="0.0.176" />
-    <PackageReference Include="OdeyTech.WPF.UIElements" Version="0.0.173" />
+    <PackageReference Include="OdeyTech.WPF.UIElements" Version="0.0.186" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
   </ItemGroup>
   <ItemGroup>

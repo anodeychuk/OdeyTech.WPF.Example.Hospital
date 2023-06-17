@@ -160,6 +160,9 @@
   <data name="ErrorView" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="ErrorWindowTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

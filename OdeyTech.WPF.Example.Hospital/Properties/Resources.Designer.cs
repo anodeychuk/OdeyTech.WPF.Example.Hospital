@@ -189,6 +189,15 @@ namespace OdeyTech.WPF.Example.Hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorWindowTitle {
+            get {
+                return ResourceManager.GetString("ErrorWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {

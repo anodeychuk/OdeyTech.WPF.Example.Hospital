@@ -16,7 +16,7 @@ using System.Windows.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using OdeyTech.Data.Provider;
+using OdeyTech.Data.Provider.Interface;
 using OdeyTech.ProductivityKit;
 using OdeyTech.ProductivityKit.Enum;
 using OdeyTech.ProductivityKit.Extension;
@@ -134,13 +134,20 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         [RelayCommand]
         public void Add()
         {
-            Patient patient = this.patientProvider.NewItem();
-            var viewModel = new PatientViewModel(patient, Resources.PatientWindowTitleNew);
-            ShowWindow<PatientWindow>(viewModel);
-            if (viewModel.ResultButton == ButtonName.Save)
+            try
             {
-                this.patientProvider.Add(viewModel.Patient);
-                RefreshPatientsGrid();
+                Patient patient = this.patientProvider.NewItem();
+                var viewModel = new PatientViewModel(patient, Resources.PatientWindowTitleNew);
+                ShowWindow<PatientWindow>(viewModel);
+                if (viewModel.ResultButton == ButtonName.Save)
+                {
+                    this.patientProvider.Add(viewModel.Patient);
+                    RefreshPatientsGrid();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError("Error when adding a patient.", ex);
             }
         }
 
@@ -150,13 +157,20 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         [RelayCommand]
         public void Edit()
         {
-            Patient patient = this.patientProvider.BeginEdit(SelectedPatient);
-            var viewModel = new PatientViewModel(patient, Resources.PatientWindowTitleEdit);
-            ShowWindow<PatientWindow>(viewModel);
-            if (viewModel.ResultButton == ButtonName.Save)
+            try
             {
-                this.patientProvider.EndEdit(viewModel.Patient);
-                RefreshPatientsGrid();
+                Patient patient = this.patientProvider.BeginEdit(SelectedPatient);
+                var viewModel = new PatientViewModel(patient, Resources.PatientWindowTitleEdit);
+                ShowWindow<PatientWindow>(viewModel);
+                if (viewModel.ResultButton == ButtonName.Save)
+                {
+                    this.patientProvider.EndEdit(viewModel.Patient);
+                    RefreshPatientsGrid();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError("Error when editing a patient.", ex);
             }
         }
 
@@ -171,8 +185,15 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
                 return;
             }
 
-            this.patientProvider.Remove(SelectedPatient);
-            RefreshPatientsGrid();
+            try
+            {
+                this.patientProvider.Remove(SelectedPatient);
+                RefreshPatientsGrid();
+            }
+            catch (Exception ex)
+            {
+                ShowError("Error when removing a patient.", ex);
+            }
         }
 
         /// <summary>
@@ -227,5 +248,8 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         /// <param name="viewModel">The view model for the dialog window.</param>
         private void ShowWindow<T>(IWindowViewModel viewModel) where T : Window, new()
           => this.serviceProvider.GetRequiredService<IViewManager>().ShowDialog<T>(viewModel, CurrentWindow);
+
+        private void ShowError(string message, Exception ex)
+            => this.serviceProvider.GetRequiredService<IViewManager>().ShowError(Resources.ErrorWindowTitle, new Exception(message, ex), CurrentWindow);
     }
 }

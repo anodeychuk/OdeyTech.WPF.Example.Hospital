@@ -6,6 +6,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
@@ -29,23 +30,30 @@ namespace OdeyTech.WPF.Example.Hospital.Configuration
         /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
         public static void ConfigureServices(IServiceCollection services)
         {
-            // Registers IDbConnection service as a transient service
-            // Each time it's requested a new SQLiteConnection will be created
-            services.AddTransient<IDbConnection>(provider => new SQLiteConnection(ConfigurationManager.ConnectionStrings["SQLiteDbConnection"].ConnectionString));
-
-            // Registers PatientRepository as a transient service
-            // Each time it's requested a new PatientRepository will be created with a new IDbConnection and IDbChecker
-            services.AddTransient(provider =>
+            try
             {
-                IDbConnection connection = provider.GetRequiredService<IDbConnection>();
-                var dbChecker = new SQLiteChecker();
-                return new PatientRepository(connection, dbChecker);
-            });
+                // Registers IDbConnection service as a transient service
+                // Each time it's requested a new SQLiteConnection will be created
+                services.AddTransient<IDbConnection>(provider => new SQLiteConnection(ConfigurationManager.ConnectionStrings["SQLiteDbConnection"].ConnectionString));
 
-            services.AddTransient<PatientProvider>();
-            services.AddSingleton<IViewManager, ViewManager>();
-            services.AddSingleton<MainViewModel>();
-            services.AddTransient<PatientViewModel>();
+                // Registers PatientRepository as a transient service
+                // Each time it's requested a new PatientRepository will be created with a new IDbConnection and IDbChecker
+                services.AddTransient(provider =>
+                {
+                    IDbConnection connection = provider.GetRequiredService<IDbConnection>();
+                    var dbChecker = new SQLiteChecker();
+                    return new PatientRepository(connection, dbChecker);
+                });
+
+                services.AddTransient<PatientProvider>();
+                services.AddSingleton<IViewManager, ViewManager>();
+                services.AddSingleton<MainViewModel>();
+                services.AddTransient<PatientViewModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while configuring services.", ex);
+            }
         }
     }
 }

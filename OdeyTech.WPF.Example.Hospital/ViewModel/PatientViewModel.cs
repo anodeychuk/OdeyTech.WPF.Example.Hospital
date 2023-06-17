@@ -6,7 +6,6 @@
 // </copyright>
 // --------------------------------------------------------------------------
 
-using System;
 using CommunityToolkit.Mvvm.Input;
 using OdeyTech.ProductivityKit.Enum;
 using OdeyTech.WPF.Common.ViewModel;

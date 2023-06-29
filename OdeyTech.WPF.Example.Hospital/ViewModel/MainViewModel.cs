@@ -44,13 +44,16 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
         /// <param name="serviceProvider">The <see cref="IServiceProvider"/> for dependency injection.</param>
-
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceProvider"/> is null.</exception>
         public MainViewModel(IServiceProvider serviceProvider)
         {
+            ThrowHelper.ThrowIfNull(serviceProvider, nameof(serviceProvider));
+
             this.serviceProvider = serviceProvider;
             this.productInfo = new ProductInfo(Assembly.GetExecutingAssembly());
             this.patientProvider = this.serviceProvider.GetRequiredService<PatientProvider>();
             this.patientProvider.LoadingChanged += PatientProvider_LoadingChanged;
+            this.patientProvider.Load();
         }
 
         /// <summary>
@@ -201,7 +204,6 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         /// </summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> containing event data.</param>
-
         private void PatientProvider_LoadingChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(IDataProvider<Patient>.IsLoading))

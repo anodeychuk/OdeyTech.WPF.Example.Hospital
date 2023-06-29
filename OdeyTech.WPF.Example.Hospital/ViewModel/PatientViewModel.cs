@@ -6,7 +6,9 @@
 // </copyright>
 // --------------------------------------------------------------------------
 
+using System;
 using CommunityToolkit.Mvvm.Input;
+using OdeyTech.ProductivityKit;
 using OdeyTech.ProductivityKit.Enum;
 using OdeyTech.WPF.Common.ViewModel;
 using OdeyTech.WPF.Example.Hospital.Model;
@@ -28,8 +30,13 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         /// </summary>
         /// <param name="patient">The patient to edit or create.</param>
         /// <param name="windowTitle">The title of the dialog window.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="patient"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="windowTitle"/> is null or empty.</exception>
         public PatientViewModel(Patient patient, string windowTitle)
         {
+            ThrowHelper.ThrowIfNull(patient, nameof(patient));
+            ThrowHelper.ThrowIfNullOrEmpty(windowTitle, nameof(windowTitle));
+
             Patient = patient;
             WindowTitle = windowTitle;
         }

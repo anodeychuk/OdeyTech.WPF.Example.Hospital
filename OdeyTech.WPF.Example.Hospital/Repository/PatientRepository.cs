@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using OdeyTech.Data.Repository;
-using OdeyTech.SqlProvider.Entity.Database.Checker;
+using OdeyTech.SqlProvider.Entity.Database;
 using OdeyTech.SqlProvider.Entity.Table;
 using OdeyTech.SqlProvider.Entity.Table.Column;
 using OdeyTech.SqlProvider.Entity.Table.Column.Constraint;
@@ -32,16 +32,16 @@ namespace OdeyTech.WPF.Example.Hospital.Repository
         /// </summary>
         /// <param name="dbConnection">The database connection.</param>
         /// <param name="dbChecker">The database checker.</param>
-        public PatientRepository(IDbConnection dbConnection, IDbChecker dbChecker) : base(dbConnection, dbChecker)
+        public PatientRepository(IDbConnection dbConnection) : base(DatabaseType.SQLite, dbConnection)
         {
-            this.tableTemplate.SetName("patient");
+            TableTemplate.SetName("patient");
             var converter = new SQLiteValueConverter();
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Identifier), new SQLiteDataType(SQLiteDataType.DataType.Integer), converter);
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Name), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Surname), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Patronymic), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Identifier), new SQLiteDataType(SQLiteDataType.DataType.Integer), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Name), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Surname), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Patronymic), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
 
-            this.tableTemplate.Columns.AddColumn(
+            TableTemplate.Columns.Add(
                 new SqlColumn(
                     nameof(Patient.Birthday),
                     new SQLiteDataType(SQLiteDataType.DataType.Date),
@@ -49,14 +49,14 @@ namespace OdeyTech.WPF.Example.Hospital.Repository
                     converter,
                     new SQLiteDateNameConverter()));
 
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Phone), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Postcode), new SQLiteDataType(SQLiteDataType.DataType.Integer), converter);
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Country), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.City), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
-            this.tableTemplate.Columns.AddColumn(nameof(Patient.Address), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Phone), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Postcode), new SQLiteDataType(SQLiteDataType.DataType.Integer), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Country), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
+            TableTemplate.Columns.Add(nameof(Patient.City), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
+            TableTemplate.Columns.Add(nameof(Patient.Address), new SQLiteDataType(SQLiteDataType.DataType.Text), converter);
 
             var primaryKey = new PrimaryKeyConstraint() { ColumnNames = new List<string> { nameof(Patient.Identifier) } };
-            this.tableTemplate.Columns.AddConstraints(primaryKey);
+            TableTemplate.Columns.AddConstraints(primaryKey);
         }
 
         /// <summary>

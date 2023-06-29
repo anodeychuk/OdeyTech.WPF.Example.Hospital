@@ -11,7 +11,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using Microsoft.Extensions.DependencyInjection;
-using OdeyTech.SqlProvider.Entity.Database.Checker;
+using OdeyTech.ProductivityKit;
 using OdeyTech.WPF.Common.Manager;
 using OdeyTech.WPF.Example.Hospital.Model.Provider;
 using OdeyTech.WPF.Example.Hospital.Repository;
@@ -30,21 +30,11 @@ namespace OdeyTech.WPF.Example.Hospital.Configuration
         /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
         public static void ConfigureServices(IServiceCollection services)
         {
+            ThrowHelper.ThrowIfNull(services, nameof(services));
             try
             {
-                // Registers IDbConnection service as a transient service
-                // Each time it's requested a new SQLiteConnection will be created
                 services.AddTransient<IDbConnection>(provider => new SQLiteConnection(ConfigurationManager.ConnectionStrings["SQLiteDbConnection"].ConnectionString));
-
-                // Registers PatientRepository as a transient service
-                // Each time it's requested a new PatientRepository will be created with a new IDbConnection and IDbChecker
-                services.AddTransient(provider =>
-                {
-                    IDbConnection connection = provider.GetRequiredService<IDbConnection>();
-                    var dbChecker = new SQLiteChecker();
-                    return new PatientRepository(connection, dbChecker);
-                });
-
+                services.AddTransient(provider => new PatientRepository(provider.GetRequiredService<IDbConnection>()));
                 services.AddTransient<PatientProvider>();
                 services.AddSingleton<IViewManager, ViewManager>();
                 services.AddSingleton<MainViewModel>();

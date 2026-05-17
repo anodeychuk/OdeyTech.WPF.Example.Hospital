@@ -34,8 +34,8 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         /// <exception cref="ArgumentException">Thrown if <paramref name="windowTitle"/> is null or empty.</exception>
         public PatientViewModel(Patient patient, string windowTitle)
         {
-            ThrowHelper.ThrowIfNull(patient, nameof(patient));
-            ThrowHelper.ThrowIfNullOrEmpty(windowTitle, nameof(windowTitle));
+            Guard.ThrowIfNull(patient, nameof(patient));
+            Guard.ThrowIfNullOrEmpty(windowTitle, nameof(windowTitle));
 
             Patient = patient;
             WindowTitle = windowTitle;

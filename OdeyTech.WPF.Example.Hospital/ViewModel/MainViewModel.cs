@@ -47,7 +47,7 @@ namespace OdeyTech.WPF.Example.Hospital.ViewModel
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceProvider"/> is null.</exception>
         public MainViewModel(IServiceProvider serviceProvider)
         {
-            ThrowHelper.ThrowIfNull(serviceProvider, nameof(serviceProvider));
+            Guard.ThrowIfNull(serviceProvider, nameof(serviceProvider));
 
             this.serviceProvider = serviceProvider;
             this.productInfo = new ProductInfo(Assembly.GetExecutingAssembly());

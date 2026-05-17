@@ -30,7 +30,7 @@ namespace OdeyTech.WPF.Example.Hospital.Configuration
         /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
         public static void ConfigureServices(IServiceCollection services)
         {
-            ThrowHelper.ThrowIfNull(services, nameof(services));
+            Guard.ThrowIfNull(services, nameof(services));
             try
             {
                 services.AddTransient<IDbConnection>(provider => new SQLiteConnection(ConfigurationManager.ConnectionStrings["SQLiteDbConnection"].ConnectionString));
